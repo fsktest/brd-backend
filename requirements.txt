@@ -26,3 +26,4 @@ bcrypt==3.2.2
 PyMuPDF
 aiofiles
 langchain-community
+pymupdf

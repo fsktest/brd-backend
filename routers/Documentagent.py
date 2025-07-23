@@ -1,5 +1,5 @@
 
-from fastapi import APIRouter, File, UploadFile, HTTPException
+from fastapi import APIRouter, File, UploadFile, HTTPException, Form
 from fastapi.responses import StreamingResponse
 from langchain_openai import ChatOpenAI
 from langchain.callbacks.base import AsyncCallbackHandler
@@ -83,7 +83,7 @@ def extract_batches_from_docx(file_bytes: bytes, batch_size: int = 2) -> List[Li
         raise HTTPException(status_code=400, detail=f"Failed to parse DOCX: {str(e)}")
 
 @router.post("/generate-stories-from-doc")
-async def generate_stories_from_doc(file: UploadFile = File(...), story_count: int = 10):
+async def generate_stories_from_doc(file: UploadFile = File(...), story_count: int = Form(10)):
     if story_count <= 0 or story_count > 500:
         raise HTTPException(status_code=400, detail="story_count must be between 1 and 500")
 
